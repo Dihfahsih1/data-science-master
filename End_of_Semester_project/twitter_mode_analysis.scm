@@ -1,10 +1,4 @@
 #lang racket
-
-;Personal Details
-;David Kabiito
-;2018/HD05/1954U
-;1800737705
-
 (require data-science-master)
 (require plot)
 (require math)
