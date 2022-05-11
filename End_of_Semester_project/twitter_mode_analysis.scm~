@@ -1,9 +1,5 @@
 #lang racket
 
-;Personal Details
-;David Kabiito
-;2018/HD05/1954U
-;1800737705
 
 (require data-science-master)
 (require plot)
@@ -191,10 +187,10 @@
 ;  (list (cons 'q country)))
 ;  (list (cons 'q country) (cons 'count "10") (cons 'until "2018-10-01") (cons 'geocode "0.316667,32.583330,1km")))
 ;  (list (cons 'q country) (cons 'count 100) (cons 'since_id 967824267948773377) (cons 'geocode "0.316667,32.583330,1km")))
-;  (list (cons 'q country) (cons 'since_id "967824267948773377") (cons 'geocode "0.316667,32.583330,1km")))
+;  (list (cons 'q country) (cons 'since_id "967824267948773377") (cons 'geocode "0.316667,32.583330,1km"))))
 
 (define tweeterdata (send twitter-oauth get-request 
-  "https://api.twitter.com/1.1/tweets/search/30day/prod.json" 
+  "https://api.twitter.com/1.1/tweets/search/130day/prod.json" 
   (list (cons 'query "place_country:UG")(cons 'maxResults "100") (cons 'fromDate "201810311200") (cons 'toDate "201810312359"))))
 
 ;writing the Twitter data to a file

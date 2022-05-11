@@ -1,4 +1,6 @@
 #lang racket
+
+
 (require data-science-master)
 (require plot)
 (require math)
@@ -172,20 +174,20 @@
      [access-token-secret "V4P9NzUefdYFzyAL1XIdH9iIg6uAiu3IajEiC1iu7caKu"]))
 
 
-(send twitter-oauth get-request 
-  "https://api.twitter.com/1.1/friends/ids.json" )
+;(send twitter-oauth get-request 
+;  "https://api.twitter.com/1.1/friends/ids.json" )
 
 ;Functionality for getting the country to analysis
-(display "PLEASE ENTER A PLACE_COUNTRY CODE THAT YOU WOULD WISH TO ANALYSIS\n")
-(display "Sample Country codes UG for Uganda, TZ for Tanzania. in the format place_country:UG \n")
-(define place_country (read-line))
+;(display "PLEASE ENTER A PLACE_COUNTRY CODE THAT YOU WOULD WISH TO ANALYSIS\n")
+;(display "Sample Country codes UG for Uganda, TZ for Tanzania. in the format place_country:UG \n")
+;(define place_country (read-line))
 
-(send twitter-oauth get-request 
-  "https://api.twitter.com/1.1/search/tweets.json" 
-  (list (cons 'q country)))
-  (list (cons 'q country) (cons 'count "10") (cons 'until "2018-10-01") (cons 'geocode "0.316667,32.583330,1km")))
-  (list (cons 'q country) (cons 'count 100) (cons 'since_id 967824267948773377) (cons 'geocode "0.316667,32.583330,1km")))
-  (list (cons 'q country) (cons 'since_id "967824267948773377") (cons 'geocode "0.316667,32.583330,1km")))
+;(send twitter-oauth get-request 
+;  "https://api.twitter.com/1.1/search/tweets.json" 
+;  (list (cons 'q country)))
+;  (list (cons 'q country) (cons 'count "10") (cons 'until "2018-10-01") (cons 'geocode "0.316667,32.583330,1km")))
+;  (list (cons 'q country) (cons 'count 100) (cons 'since_id 967824267948773377) (cons 'geocode "0.316667,32.583330,1km")))
+;  (list (cons 'q country) (cons 'since_id "967824267948773377") (cons 'geocode "0.316667,32.583330,1km"))))
 
 (define tweeterdata (send twitter-oauth get-request 
   "https://api.twitter.com/1.1/tweets/search/130day/prod.json" 
@@ -220,7 +222,8 @@
 (define (remove-favorite str)
   (regexp-replace* #px"favorite" str " "))
 
-;Reads all characters from in and returns them as a string.Reading from a file in this case we are reading from tweeterdata_uganda_combined.json
+;Reads all characters from in and returns them as a string.
+;Reading from a file in this case we are reading from tweeterdata_uganda_combined.json
 (define input_tweets (port->string (open-input-file "tweeterdata_uganda_combined.json")))
 
 
@@ -314,9 +317,9 @@ data1
 ;;; positive and negative sentiment scores. We'll look at the top 20
 ;;; influential (i.e., most frequent) positive and negative words
 (define negative-tokens
-  (take (cdr (subset sentiment1 'sentiment "negative")) 20))
+  (take (cdr (subset sentiment1 'sentiment "negative")) 0))
 (define positive-tokens
-  (take (cdr (subset sentiment1 'sentiment "positive")) 20))
+  (take (cdr (subset sentiment1 'sentiment "positive")) 0))
 
 ;;; Some clever reshaping for plotting purposes
 (define n (map (λ (x) (list (first x) (- 0 (third x))))
@@ -325,7 +328,7 @@ data1
 		     positive-tokens)
 		(λ (x y) (< (second x) (second y)))))
 
-;;; Plot the results
+;;; Plot the results on the graph for visualization.
 (display "TOP WORDS CONTRIBUTING TO EACH POLARITY")
 (newline)
 (newline)
@@ -339,7 +342,7 @@ data1
 			     #:color "Red"
 			     #:line-color "Red"
 			     #:label "Negative Sentiment") 
-	 (discrete-histogram p #:y-min 0
+	 (discrete-histogram p #:y-min 00
 			     #:y-max 500
 			     #:x-min 20
 			     #:color "SeaGreen"
