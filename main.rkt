@@ -26,7 +26,6 @@
 		       "./lexicons/SMART-stopwords"
 		       "./lexicons/snowball-stopwords"
 		       "./lexicons/onix-stopwords"))
-
 ;;; Can't live without alist-ref from Chicken scheme. Let's recreate
 ;;; it here, but with a shorter name
 (define (aref idx lst)
