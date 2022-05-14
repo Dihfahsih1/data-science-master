@@ -1,5 +1,4 @@
 
-
 #lang racket
 
 (require data-science-master)
@@ -15,27 +14,6 @@
   web-server/stuffers/hmac-sha1
   net/base64
   rackunit)
-
-;###################################################
-;# OAuth 1.0a for API authentication               #
-;###################################################
-
-
-;(send twitter-oauth get-request 
-;  "https://api.twitter.com/1.1/friends/ids.json" )
-
-;Functionality for getting the country to analysis
-;(display "PLEASE ENTER A PLACE_COUNTRY CODE THAT YOU WOULD WISH TO ANALYSIS\n")
-;(display "Sample Country codes UG for Uganda, TZ for Tanzania. in the format place_country:UG \n")
-;(define place_country (read-line))
-
-;(send twitter-oauth get-request 
-;  "https://api.twitter.com/1.1/search/tweets.json" 
-;  (list (cons 'q country)))
-;  (list (cons 'q country) (cons 'count "10") (cons 'until "2018-10-01") (cons 'geocode "0.316667,32.583330,1km")))
-;  (list (cons 'q country) (cons 'count 100) (cons 'since_id 967824267948773377) (cons 'geocode "0.316667,32.583330,1km")))
-;  (list (cons 'q country) (cons 'since_id "967824267948773377") (cons 'geocode "0.316667,32.583330,1km")))
-
 
 
 ;############################################################
