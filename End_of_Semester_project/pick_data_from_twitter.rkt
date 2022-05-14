@@ -1,5 +1,9 @@
 #lan racket
-
+(require net/url 
+  net/uri-codec
+  web-server/stuffers/hmac-sha1
+  net/base64
+  rackunit)
 ;###################################################
 ;# OAuth 1.0a for API authentication               #
 ;###################################################
