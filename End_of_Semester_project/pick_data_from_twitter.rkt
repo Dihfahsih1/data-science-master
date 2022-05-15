@@ -160,10 +160,10 @@
      [access-token-secret "cEuf9Oskc03PPHcUOkYYWZSPNRmZH7ASB8tsTqyArwebp"]))
 
 (define tweeterdata (send twitter-oauth get-request 
-  "https://api.twitter.com/1.1/tweets/search/365day/prod.json" 
+  "https://api.twitter.com/2/tweets/search/tweets.json" 
   (list (cons 'query "place_country:UG")
   (cons 'maxResults "100")
-   (cons 'fromDate "202101311200") 
+   (cons 'fromDate "2021-01-31-12:00") 
    (cons 'toDate "202112312359"))))
 
 ;writing the Twitter data to a file
