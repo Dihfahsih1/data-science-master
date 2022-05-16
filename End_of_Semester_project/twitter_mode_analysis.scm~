@@ -169,25 +169,22 @@ data1
 	#:y-label "Contribution to sentiment"))
 
 
-(define (qq-plot data2 #:scale? [scale? #t])
-  (let* ([n (length data2)]
-	 [lst-mean (mean data1)]
-	 [lst-stddev (stddev data1)]
+(define (qq-plot sentiment1 #:scale? [scale? #t])
+  (let* ([n (length sentiment1)]
+	 [lst-mean (mean lst)]
+	 [lst-stddev (stddev sentiment1)]
 	 [probs (map (λ (x) (/ x (+ 2 n))) (range 1 (add1 n)))]
 	 [normal-quantiles
 	  (map (λ (x) (inv-cdf (normal-dist lst-mean lst-stddev) x)) probs)]
 	 ;; Scale the data?
 	 [xs (if scale? (scale normal-quantiles) normal-quantiles)]
-	 [ys (if scale? (scale data1) data1)])
+	 [ys (if scale? (scale sentiment1) sentiment1)])
     (points (map vector (sort-samples < xs)
 		 (sort-samples < ys)))))
 
 ;;; Same as qq-plot, but automatically passed the renderer to `plot`
 ;;; for quick convenience
-(define (qq-plot* data1 #:scale? [scale? #t])
-  (plot (qq-plot data1 #:scale? scale?)
+(define (qq-plot* sentiment1 #:scale? [scale? #t])
+  (plot (qq-plot sentiment1 #:scale? scale?)
 	#:x-label "Theoretical Normal Quantiles"
-	#:y-label "Sample Quantiles")
-	(display("nothing was plotted"))
-	)
-(data1)
+	#:y-label "Sample Quantiles"))
