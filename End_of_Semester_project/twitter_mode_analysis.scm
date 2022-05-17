@@ -168,26 +168,3 @@ data1
 	#:x-label "Word"
 	#:y-label "Contribution to sentiment"))
 
-
-(define (qq-plot data2 #:scale? [scale? #t])
-  (let* ([n (length data2)]
-	 [lst-mean (mean data1)]
-	 [lst-stddev (stddev data1)]
-	 [probs (map (λ (x) (/ x (+ 2 n))) (range 1 (add1 n)))]
-	 [normal-quantiles
-	  (map (λ (x) (inv-cdf (normal-dist lst-mean lst-stddev) x)) probs)]
-	 ;; Scale the data?
-	 [xs (if scale? (scale normal-quantiles) normal-quantiles)]
-	 [ys (if scale? (scale data1) data1)])
-    (points (map vector (sort-samples < xs)
-		 (sort-samples < ys)))))
-
-;;; Same as qq-plot, but automatically passed the renderer to `plot`
-;;; for quick convenience
-(define (qq-plot* data1 #:scale? [scale? #t])
-  (plot (qq-plot data1 #:scale? scale?)
-	#:x-label "Theoretical Normal Quantiles"
-	#:y-label "Sample Quantiles")
-	(display("nothing was plotted"))
-	)
-(data1)
