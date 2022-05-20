@@ -1,3 +1,7 @@
+;MUGOYA DIHFAHSIH
+;Student no. 2100702353
+;Reg no. 2021/HD05/2353U
+
 #lang racket
 (require net/url 
   net/uri-codec
@@ -174,7 +178,7 @@
   (cons 'toDate "202205202359"))));; 2022-05-20 at 2359hrs
 
 ;writing the Twitter data picked to a file
-(define out (open-output-file "data.json"))
-(write tweeterdata out)
-(close-output-port out)
+(define writing_to_json_file (open-output-file "data.json"))
+(write tweeterdata writing_to_json_file)
+(close-output-port writing_to_json_file)
 

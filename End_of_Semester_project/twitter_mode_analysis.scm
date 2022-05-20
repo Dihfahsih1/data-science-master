@@ -1,3 +1,7 @@
+;MUGOYA DIHFAHSIH
+;Student no. 2100702353
+;Reg no. 2021/HD05/2353U
+
 
 #lang racket
 
@@ -41,13 +45,12 @@
   (regexp-replace* #px"favorite" str " "))
 
 ;Reads all characters from in and returns them as a string.Reading from a file in this case we are reading from data.json
-(define input_tweets (port->string (open-input-file "data12.json")))
+(define input_tweets (port->string (open-input-file "data.json")))
 
 
 ;changing all words to lower case, then removing urls,then remove punctuation makes
-;the normalizing the space between words
-;;; the cleaned data is save as cleanedinutdata and the input is rawiputdata
-(define cleanedinutdata (string-normalize-spaces
+;the normalizing the space between words the cleaned data is save as cleanedinutdata and the input is rawiputdata
+(define cleaned_input_data (string-normalize-spaces
                          (remove-punctuation
                           (remove-false
                            (remove-true
@@ -57,38 +60,28 @@
                                (remove-urls
                                 (string-downcase input_tweets))))))))))
 
-
 ;;This proceedure outputs quoted strings in the list. The order of the strings is not maintained from input to output
-;;Further cleaning is done by removing stop words using the defaults lexicon (SMART)
-;;INPUT: cleanedinutdata
-;;OUTPUT: cleanedinutdata1
-;(define cleanedinutdata2 (remove-stopwords (string-split cleanedinutdata)))
+;;Further cleaning is done by removing stop words using the defaults lexicon 
 
 ;;Returns a list of pairs. Each pair consists of a unique word/token from str with its frequency.
 ;;the number of times a word occurs in the tweets selected
-;;INPUT:cleanedinutdata
-;;OUTPUT:cleanedinutdata1
-
-(define cleanedinutdata1 (document->tokens cleanedinutdata #:sort? #t))
+(define cleaned_input_data1 (document->tokens cleaned_input_data #:sort? #t))
 
 ;;; Using the nrc lexicon, we can label each (non stop-word) with an
 ;;; emotional label.
-;;INPUT:cleanedinutdata1
-;;OUTPUT:sentiment
-(define sentiment (list->sentiment cleanedinutdata1 #:lexicon 'nrc))
-
+(define sentiment (list->sentiment cleaned_input_data1 #:lexicon 'nrc))
 
 
 ;;; sentiment, created above, consists of a list of triplets of the pattern
 ;;; (token sentiment freq) for each token in the document. Many words will have 
 ;;; the same sentiment label, so we aggregrate (by summing) across such tokens.
-;;INPUT:sentiment
-;;OUTPUT:data1
-
 (define sentimize_twitter_data (aggregate sum ($ sentiment 'sentiment) ($ sentiment 'freq)))
 (newline)
 sentimize_twitter_data
 
+(newline)
+(newline)
+(display "SENTIMENTAL DISCRETE-HISTOGRAM")
 (newline)
 (newline)
 ;;;We can visualize this result as a barplot (discrete-histogram)
@@ -103,20 +96,17 @@ sentimize_twitter_data
 	  #:x-label "Affective Label"
 	  #:y-label "Frequency")))
 
-;;;Using the bing lexicon to determine the ratio of
-;;; positive-to-negative words
-;;INPUT:sentiment1
-;;OUTPUT:cleanedinutdata1
+;;;Using the bing lexicon to determine the ratio ofpositive-to-negative words
 (newline)
 (newline)
 (display "SENTIMENTAL POLARITY USING BING LEXICON")
 (newline)
 (newline)
-(define sentiment1 (list->sentiment cleanedinutdata1 #:lexicon 'bing))
-(define data2 (aggregate sum ($ sentiment1 'sentiment) ($ sentiment1 'freq)))
+(define sentiment1 (list->sentiment cleaned_input_data1 #:lexicon 'bing))
+(define better_histogram (aggregate sum ($ sentiment1 'sentiment) ($ sentiment1 'freq)))
 (parameterize ([plot-height 200])
   (plot (discrete-histogram
-	 data2
+	 better_histogram
 	 #:y-min 0
 	 ;#:y-max 2000
 	 #:invert? #t

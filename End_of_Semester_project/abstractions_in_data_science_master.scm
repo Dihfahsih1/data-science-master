@@ -1,3 +1,6 @@
+;MUGOYA DIHFAHSIH
+;Student no. 2100702353
+;Reg no. 2021/HD05/2353U
 #lang racket
 (require net/url)
 (require data-science-master)
