@@ -1,2 +1,0 @@
-# End_of_Semester_project
-The goal of this project is to enable you study an existing code base, identify abstractions (data, &amp; procedure abstractions) and build new abstractions for a given problem domain.  For this project, you will explore Data Science abstractions for Scheme - https://github.com/n3mo/data-science. The purpose of the abstractions is to allow developers to write data analytics and manipulation software in a language that does not natively provide the support. In this case the language is Scheme.
