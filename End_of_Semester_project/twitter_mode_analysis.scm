@@ -40,8 +40,8 @@
 (define (remove-favorite str)
   (regexp-replace* #px"favorite" str " "))
 
-;Reads all characters from in and returns them as a string.Reading from a file in this case we are reading from tweeterdata_uganda_combined.json
-(define input_tweets (port->string (open-input-file "data.json")))
+;Reads all characters from in and returns them as a string.Reading from a file in this case we are reading from data.json
+(define input_tweets (port->string (open-input-file "data12.json")))
 
 
 ;changing all words to lower case, then removing urls,then remove punctuation makes
@@ -68,8 +68,8 @@
 ;;the number of times a word occurs in the tweets selected
 ;;INPUT:cleanedinutdata
 ;;OUTPUT:cleanedinutdata1
-(define cleanedinutdata1 (document->tokens cleanedinutdata #:sort? #t))
 
+(define cleanedinutdata1 (document->tokens cleanedinutdata #:sort? #t))
 
 ;;; Using the nrc lexicon, we can label each (non stop-word) with an
 ;;; emotional label.
@@ -84,19 +84,15 @@
 ;;; the same sentiment label, so we aggregrate (by summing) across such tokens.
 ;;INPUT:sentiment
 ;;OUTPUT:data1
-(define data1 (aggregate sum ($ sentiment 'sentiment) ($ sentiment 'freq)))
 
+(define sentimize_twitter_data (aggregate sum ($ sentiment 'sentiment) ($ sentiment 'freq)))
 (newline)
-
-;Sample list output of the aggregate data
-;->'(("positive" 105944)("trust" 71888)("disgust" 10463)("fear" 11507)("negative" 24929)("sadness" 11003)
-;                     ("anticipation" 24320)("surprise" 12054)("joy" 7452)("anger" 1820)) 
-data1
+sentimize_twitter_data
 
 (newline)
 (newline)
 ;;;We can visualize this result as a barplot (discrete-histogram)
-(let ([counts data1])
+(let ([counts sentimize_twitter_data])
   (parameterize ((plot-width 800))
     (plot (list
 	   (tick-grid)

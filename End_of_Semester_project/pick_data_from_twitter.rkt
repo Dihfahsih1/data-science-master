@@ -154,20 +154,27 @@
 
 ;;;;;Sample twitter OAuth 1.0a for API authentication
 (define twitter-oauth (new oauth-single-user%  
-     [consumer-key "CONSUMER KEY FROM TWITTER"]
-     [consumer-secret "CONSUMER SECRET KEY"]
-     [access-token "ACCESS TOKEN FROM TWITTER"]
-     [access-token-secret "ACCESS TOKEN SECRET"]))
+    [consumer-key "CONSUMER KEY FROM TWITTER"]
+    [consumer-secret "CONSUMER SECRET KEY"]
+    [access-token "ACCESS TOKEN FROM TWITTER"]
+    [access-token-secret "ACCESS TOKEN SECRET"]))
+
+;Functionality for getting the country to analysis
+(display "PLEASE ENTER A PLACE_COUNTRY CODE THAT YOU WOULD WISH TO ANALYSIS\n")
+(display "****Sample Country code e.g UG for Uganda**** \n")
+(define place_country (read-line))
+
 
 ;picking the twitter data for 12 months in uganda
-(define tweeterdata (send twitter-oauth get-request 
+(define tweeterdata (send twitter-oauth get-request
   "https://api.twitter.com/1.1/tweets/search/365day/prod.json" 
   (list (cons 'query "place_country:UG")
   (cons 'maxResults "100") 
-  (cons 'fromDate "202110311200") 
-  (cons 'toDate "201810312359"))))
+  (cons 'fromDate "202105201200") ;;2021-05-20 at 1200hrs
+  (cons 'toDate "202205202359"))));; 2022-05-20 at 2359hrs
 
 ;writing the Twitter data picked to a file
 (define out (open-output-file "data.json"))
 (write tweeterdata out)
 (close-output-port out)
+
